@@ -11,17 +11,17 @@ export default function SignUp() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/auth/signup',
-    {
-      method:'POST',
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'applications/json',
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify(formData),
-    }
-    )
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    console.log(data);
   };
 
   console.log(formData);
@@ -29,7 +29,7 @@ export default function SignUp() {
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Sign Up</h1>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Username"
@@ -53,7 +53,6 @@ export default function SignUp() {
         />
         <button
           className="bg-slate-700 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-80 text-lg"
-          onClick={handleSubmit}
         >
           SIGN UP
         </button>
